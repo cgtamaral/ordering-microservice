@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
+import br.pucminas.orderingmicroservice.api.dtos.CustomerDTO;
 
 @Entity
 public class Customer {
@@ -72,6 +75,16 @@ public class Customer {
 	}
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	@Transient
+	public static CustomerDTO convertToDTO(Customer customer)
+	{
+		CustomerDTO customerDTO = new CustomerDTO();
+		customerDTO.setId(customer.getId());
+		customerDTO.setUser(User.convertToDTO(customer.getUser()));
+		
+		return customerDTO;
 	}
 
 }

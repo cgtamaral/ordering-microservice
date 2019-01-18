@@ -1,5 +1,8 @@
 package br.pucminas.orderingmicroservice.api.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
+import br.pucminas.orderingmicroservice.api.dtos.ShoppingCartItemDTO;
 
 @Entity
 public class ShoppingCartItem 
@@ -51,5 +57,21 @@ public class ShoppingCartItem
 	}
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	
+	@Transient
+	public static List<ShoppingCartItemDTO> convertToDTO(List<ShoppingCartItem> itemsShoppingCart)
+	{
+		List<ShoppingCartItemDTO> retorno = new ArrayList<ShoppingCartItemDTO>();
+		for (ShoppingCartItem item : itemsShoppingCart)
+		{ 
+			ShoppingCartItemDTO itemDTO = new ShoppingCartItemDTO();
+			itemDTO.setId(item.getId());
+			itemDTO.setBook(Book.convertToDTO(item.getBook()));
+			itemDTO.setQuantity(item.getQuantity());
+			
+			retorno.add(itemDTO);
+		}
+		return retorno;
 	}
 }

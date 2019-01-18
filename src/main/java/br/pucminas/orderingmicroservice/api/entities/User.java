@@ -9,7 +9,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
+import br.pucminas.orderingmicroservice.api.dtos.UserDTO;
 import br.pucminas.orderingmicroservice.api.enums.UserProfileEnum;
 
 @Entity
@@ -103,6 +105,22 @@ public class User
 	}
 	public void setDateRegister(Calendar dateRegister) {
 		this.dateRegister = dateRegister;
+	}
+	
+	@Transient
+	public static UserDTO convertToDTO(User user) {
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(user.getId());
+		userDTO.setName(user.getName());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setMobilePhoneNumber(user.getMobilePhoneNumber());
+		userDTO.setCpf(user.getCpf());
+		userDTO.setUserProfile(user.getUserProfile().toString());
+		userDTO.setDateRegister(user.getDateRegister());
+	
+
+		return userDTO;
 	}
 	
 }

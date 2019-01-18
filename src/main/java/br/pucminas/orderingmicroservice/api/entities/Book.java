@@ -190,25 +190,32 @@ public class Book
 		List<BookDTO> retorno = new ArrayList<BookDTO>();
 		for (Book book : books) {
 			
-			BookDTO bookDTO = new BookDTO();
-			bookDTO.setId(book.getId());
-			bookDTO.setTitle(book.getTitle());
-			bookDTO.setLanguage(book.getLanguage());
-			bookDTO.setISBN10Code(book.getISBN10Code());
-			bookDTO.setISBN13Code(book.getISBN13Code());
-			bookDTO.setAuthors(getAuthorsToString(book.getAuthors()));
-			bookDTO.setPublisher(book.getPublisher().getName());
-			bookDTO.setEdition(book.getEdition());
-			bookDTO.setProductDimensions(book.getProductDimensions());
-			bookDTO.setShippingWeight(book.getShippingWeight());
-			bookDTO.setUnitMeasure(book.getUnitMeasure());
-			bookDTO.setAverageCustomerReview(book.getAverageCustomerReview());
-			bookDTO.setBestSellerRank(book.getBestSellerRank());
-			bookDTO.setPrice(book.getPrice());
+			BookDTO bookDTO = convertToDTO(book);
 			
 			retorno.add(bookDTO);
 		}
 		return retorno;
+	}
+	
+	@Transient
+	public static BookDTO convertToDTO(Book book) {
+		
+		BookDTO bookDTO = new BookDTO();
+		bookDTO.setId(book.getId());
+		bookDTO.setTitle(book.getTitle());
+		bookDTO.setLanguage(book.getLanguage());
+		bookDTO.setISBN10Code(book.getISBN10Code());
+		bookDTO.setISBN13Code(book.getISBN13Code());
+		bookDTO.setAuthors(getAuthorsToString(book.getAuthors()));
+		bookDTO.setPublisher(book.getPublisher().getName());
+		bookDTO.setEdition(book.getEdition());
+		bookDTO.setProductDimensions(book.getProductDimensions());
+		bookDTO.setShippingWeight(book.getShippingWeight());
+		bookDTO.setUnitMeasure(book.getUnitMeasure());
+		bookDTO.setAverageCustomerReview(book.getAverageCustomerReview());
+		bookDTO.setBestSellerRank(book.getBestSellerRank());
+		bookDTO.setPrice(book.getPrice());
+		return bookDTO;
 	}
 
 	@Transient
@@ -221,5 +228,7 @@ public class Book
 		
 		return retorno;
 	}
+
+
 
 }

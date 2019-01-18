@@ -2,8 +2,6 @@ package br.pucminas.orderingmicroservice.api.dtos;
 
 import java.util.Calendar;
 
-import br.pucminas.orderingmicroservice.api.enums.UserProfileEnum;
-
 public class UserDTO {
 	
 	private Long id;
@@ -12,11 +10,13 @@ public class UserDTO {
 	private String mobilePhoneNumber;
 	private String cpf;
 	private String password;
-	private UserProfileEnum userProfile;
+	private String userProfile;
 	private Calendar dateRegister;
 	
+	public UserDTO(){}
+	
 	public UserDTO(Long id, String name, String email, String mobilePhoneNumber, String cpf, String password,
-			UserProfileEnum userProfile, Calendar dateRegister) {
+			String userProfile, Calendar dateRegister) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,10 +64,10 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserProfileEnum getUserProfile() {
+	public String getUserProfile() {
 		return userProfile;
 	}
-	public void setUserProfile(UserProfileEnum userProfile) {
+	public void setUserProfile(String userProfile) {
 		this.userProfile = userProfile;
 	}
 	public Calendar getDateRegister() {

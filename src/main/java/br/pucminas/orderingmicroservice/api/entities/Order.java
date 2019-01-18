@@ -1,5 +1,8 @@
 package br.pucminas.orderingmicroservice.api.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,7 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import br.pucminas.orderingmicroservice.api.dtos.OrderDTO;
+import br.pucminas.orderingmicroservice.api.dtos.SimpleOrderDTO;
 import br.pucminas.orderingmicroservice.api.enums.OrderStatusEnum;
 
 @Entity
@@ -76,5 +82,35 @@ public class Order
 	}
 	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public static List<SimpleOrderDTO> convertToDTO(List<Order> pedidos) {
+		List<SimpleOrderDTO> retorno = new ArrayList<SimpleOrderDTO>();
+		for (Order order : pedidos) 
+		{
+			SimpleOrderDTO simpleOrder = new SimpleOrderDTO();
+			simpleOrder.setId(order.getId());
+			simpleOrder.setCustomerId(order.getDelivery().getDeliveryAddress().getCustomer().getId());
+			simpleOrder.setOrderStatus(order.getOrderStatusEnum().toString());
+			simpleOrder.setSubTotal(order.getSubTotal());
+			
+			retorno.add(simpleOrder);
+		}
+		
+		return retorno;
+	}
+
+	@Transient
+	public static OrderDTO convertToDTO(Order order) 
+	{
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setId(order.getId());
+		orderDTO.setCustomerId(order.getDelivery().getDeliveryAddress().getCustomer().getId());
+		orderDTO.setShoppingCart(ShoppingCart.convertToDTO(order.getShoppingCart()));
+		orderDTO.setDelivery(Delivery.convertToDTO(order.getDelivery()));
+		orderDTO.setOrderStatus(order.getOrderStatusEnum().toString());
+		orderDTO.setSubTotal(order.getSubTotal());
+				
+		return orderDTO;
 	}
 }

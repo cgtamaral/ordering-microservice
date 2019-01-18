@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import br.pucminas.orderingmicroservice.api.dtos.AddressDTO;
 
 @Entity
 public class Address {
@@ -109,6 +112,22 @@ public class Address {
 	}
 	public void setDeliveryInstructions(String deliveryInstructions) {
 		this.deliveryInstructions = deliveryInstructions;
+	}
+
+	@Transient
+	public static AddressDTO convertToDTO(Address deliveryAddress) {
+		AddressDTO addressDTO = new AddressDTO();
+		addressDTO.setId(deliveryAddress.getId());
+		addressDTO.setCustomer(Customer.convertToDTO(deliveryAddress.getCustomer()));
+		addressDTO.setFullName(deliveryAddress.getFullName());
+		addressDTO.setCountryRegion(deliveryAddress.getCountryRegion());
+		addressDTO.setStreetAddress(deliveryAddress.getStreetAddress());
+		addressDTO.setCity(deliveryAddress.getCity());
+		addressDTO.setStateProvinceRegion(deliveryAddress.getStateProvinceRegion());
+		addressDTO.setZipCode(deliveryAddress.getZipCode());
+		addressDTO.setDeliveryInstructions(deliveryAddress.getDeliveryInstructions());
+		
+		return addressDTO;
 	}
 	
 }

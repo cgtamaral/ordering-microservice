@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
+import br.pucminas.orderingmicroservice.api.dtos.DeliveryDTO;
 import br.pucminas.orderingmicroservice.api.enums.DeliveryStatusEnum;
 import br.pucminas.orderingmicroservice.api.enums.DeliveryTypeEnum;
 
@@ -86,5 +88,20 @@ public class Delivery
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	@Transient
+	public static DeliveryDTO convertToDTO(Delivery delivery)
+	{
+		DeliveryDTO deliveryDTO = new DeliveryDTO();
+		deliveryDTO.setId(delivery.getId());
+		deliveryDTO.setDeliveryAddress(Address.convertToDTO(delivery.getDeliveryAddress()));
+		deliveryDTO.setDeliveryType(delivery.getDeliveryTypeEnum().toString());
+		deliveryDTO.setDeliveryStatus(delivery.getDeliveryStatusEnum().toString());
+		deliveryDTO.setPayment(Payment.convertToDTO(delivery.getPayment()));
+		deliveryDTO.setPrice(delivery.getPrice());
+		
+
+		return deliveryDTO;
 	}
 }

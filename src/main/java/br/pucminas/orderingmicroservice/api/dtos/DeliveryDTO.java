@@ -1,25 +1,22 @@
 package br.pucminas.orderingmicroservice.api.dtos;
 
-import br.pucminas.orderingmicroservice.api.enums.DeliveryStatusEnum;
-import br.pucminas.orderingmicroservice.api.enums.DeliveryTypeEnum;
-
 public class DeliveryDTO {
 	
 	private Long id;
 	private AddressDTO deliveryAddress;
-	private DeliveryTypeEnum deliveryTypeEnum;
-	private DeliveryStatusEnum deliveryStatusEnum;
+	private String deliveryType;
+	private String deliveryStatus;
 	private PaymentDTO payment;
 	private Double price;
 	
 	public DeliveryDTO() {}
 	
-	public DeliveryDTO(Long id, AddressDTO deliveryAddress, DeliveryTypeEnum deliveryTypeEnum,
-			DeliveryStatusEnum deliveryStatusEnum, PaymentDTO payment, Double price) {
+	public DeliveryDTO(Long id, AddressDTO deliveryAddress, String deliveryType,
+			String deliveryStatus, PaymentDTO payment, Double price) {
 		this.id = id;
 		this.deliveryAddress = deliveryAddress;
-		this.deliveryTypeEnum = deliveryTypeEnum;
-		this.deliveryStatusEnum = deliveryStatusEnum;
+		this.deliveryType = deliveryType;
+		this.deliveryStatus = deliveryStatus;
 		this.payment = payment;
 		this.price = price;
 	}
@@ -36,17 +33,17 @@ public class DeliveryDTO {
 	public void setDeliveryAddress(AddressDTO deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
-	public DeliveryTypeEnum getDeliveryTypeEnum() {
-		return deliveryTypeEnum;
+	public String getDeliveryType() {
+		return deliveryType;
 	}
-	public void setDeliveryTypeEnum(DeliveryTypeEnum deliveryTypeEnum) {
-		this.deliveryTypeEnum = deliveryTypeEnum;
+	public void setDeliveryType(String deliveryType) {
+		this.deliveryType = deliveryType;
 	}
-	public DeliveryStatusEnum getDeliveryStatusEnum() {
-		return deliveryStatusEnum;
+	public String getDeliveryStatus() {
+		return deliveryStatus;
 	}
-	public void setDeliveryStatusEnum(DeliveryStatusEnum deliveryStatusEnum) {
-		this.deliveryStatusEnum = deliveryStatusEnum;
+	public void setDeliveryStatus(String deliveryStatus) {
+		this.deliveryStatus = deliveryStatus;
 	}
 	public PaymentDTO getPayment() {
 		return payment;

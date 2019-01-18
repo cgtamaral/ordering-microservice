@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import br.pucminas.orderingmicroservice.api.dtos.ShoppingCartDTO;
 
 @Entity
 public class ShoppingCart 
@@ -47,5 +50,15 @@ public class ShoppingCart
 	}
 	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
+	}
+
+	@Transient
+	public static ShoppingCartDTO convertToDTO(ShoppingCart shoppingCart) {
+		ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+		shoppingCartDTO.setId(shoppingCart.getId());
+		shoppingCartDTO.setItemsShoppingCart(ShoppingCartItem.convertToDTO(shoppingCart.getItemsShoppingCart()));
+		shoppingCartDTO.setSubtotal(shoppingCart.getSubtotal());
+		
+		return shoppingCartDTO;
 	}
 }

@@ -1,22 +1,20 @@
 package br.pucminas.orderingmicroservice.api.dtos;
 
-import br.pucminas.orderingmicroservice.api.enums.OrderStatusEnum;
-
 public class OrderDTO 
 {
 	private Long id;
 	private Long customerId;
-	private OrderStatusEnum orderStatusEnum;
+	private String orderStatus;
 	private ShoppingCartDTO shoppingCart;
 	private DeliveryDTO delivery;
 	private Double subTotal;
 	
 	public OrderDTO() {}
 	
-	public OrderDTO(Long id, Long customerId, OrderStatusEnum orderStatusEnum, ShoppingCartDTO shoppingCart, DeliveryDTO delivery,
+	public OrderDTO(Long id, Long customerId, String orderStatus, ShoppingCartDTO shoppingCart, DeliveryDTO delivery,
 			Double subTotal) {
 		this.id = id;
-		this.orderStatusEnum = orderStatusEnum;
+		this.orderStatus = orderStatus;
 		this.shoppingCart = shoppingCart;
 		this.delivery = delivery;
 		this.subTotal = subTotal;
@@ -34,11 +32,11 @@ public class OrderDTO
 	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
-	public OrderStatusEnum getOrderStatusEnum() {
-		return orderStatusEnum;
+	public String getOrderStatus() {
+		return orderStatus;
 	}
-	public void setOrderStatusEnum(OrderStatusEnum orderStatusEnum) {
-		this.orderStatusEnum = orderStatusEnum;
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 	public ShoppingCartDTO getShoppingCart() {
 		return shoppingCart;

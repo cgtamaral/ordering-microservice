@@ -109,6 +109,7 @@ public class BookReview
 		return retorno;
 	}
 
+	@Transient
 	public static BookReviewDTO convertToDTO(BookReview bookReview)
 	{
 		BookReviewDTO bookReviewDTO = new BookReviewDTO();

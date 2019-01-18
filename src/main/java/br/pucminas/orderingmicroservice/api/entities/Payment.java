@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import br.pucminas.orderingmicroservice.api.dtos.PaymentDTO;
 
 @Entity
 public class Payment {
@@ -75,5 +78,19 @@ public class Payment {
 	}
 	public void setNumberOfInstallments(Integer numberOfInstallments) {
 		this.numberOfInstallments = numberOfInstallments;
+	}
+
+	@Transient
+	public static PaymentDTO convertToDTO(Payment payment) 
+	{
+		PaymentDTO paymentDTO = new PaymentDTO();
+		paymentDTO.setId(payment.getId());
+		paymentDTO.setNameOnCard(payment.getNameOnCard());
+		paymentDTO.setCardNumber(payment.getCardNumber());
+		paymentDTO.setExpirationDate(payment.getExpirationDate());
+		paymentDTO.setGiftCardOrPromotionalCode(payment.getGiftCardOrPromotionalCode());
+		paymentDTO.setNumberOfInstallments(payment.getNumberOfInstallments());
+		
+		return paymentDTO;
 	}
 }
